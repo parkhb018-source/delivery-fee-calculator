@@ -1,0 +1,369 @@
+/* ===== 기본 설정: 큰 글씨, 큰 버튼 ===== */
+:root {
+  --color-bg: #f2f3f5;
+  --color-card: #ffffff;
+  --color-text: #1c1c1e;
+  --color-sub: #8a8f98;
+  --color-primary: #171717;
+  --color-primary-dark: #000000;
+  --color-accent: #1481fa;
+  --color-border: #e6e7eb;
+  --color-danger: #e0245e;
+  --radius: 22px;
+  --shadow-card: 0 2px 14px rgba(20, 20, 30, 0.06);
+  --shadow-pop: 0 6px 20px rgba(20, 20, 30, 0.10);
+
+  --baemin: #2ac1bc;
+  --baemin-tint: #e3f7f6;
+  --yogiyo: #fa0050;
+  --yogiyo-tint: #ffe6ed;
+  --coupangeats: #1481fa;
+  --coupangeats-tint: #e7f1ff;
+  --color-accent-tint: #e7f1ff;
+}
+
+/* data-platform이 붙은 모든 요소(버튼/카드)에 브랜드 컬러를 한 번만 매핑 —
+   자식(.pc-badge 등)도 커스텀 프로퍼티 상속으로 같은 색을 그대로 물려받음 */
+[data-platform="baemin"] { --brand: var(--baemin); --brand-tint: var(--baemin-tint); }
+[data-platform="yogiyo"] { --brand: var(--yogiyo); --brand-tint: var(--yogiyo-tint); }
+[data-platform="coupangeats"] { --brand: var(--coupangeats); --brand-tint: var(--coupangeats-tint); }
+
+* { box-sizing: border-box; }
+
+/* .compare-cards/.result-card 등은 자체 display 규칙(flex 등)을 가지고 있어
+   브라우저 기본 [hidden] 규칙(동일 특이도)을 이길 수 있음 — 토글 대상만 명시적으로 재정의 */
+.result-card[hidden],
+.compare-cards[hidden],
+.advanced-panel[hidden],
+.breakdown-list[hidden] {
+  display: none;
+}
+
+html { font-size: 18px; }
+
+body {
+  margin: 0;
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.app-header {
+  text-align: center;
+  padding: 24px 16px 12px;
+}
+.app-header h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1.6rem;
+  margin: 0 0 6px;
+}
+.app-icon {
+  flex-shrink: 0;
+}
+.app-sub {
+  font-size: 1rem;
+  color: var(--color-sub);
+  margin: 0;
+}
+
+/* ===== 탭 (알약형 세그먼트 컨트롤) ===== */
+.tabs {
+  display: flex;
+  gap: 4px;
+  max-width: 640px;
+  margin: 0 auto 16px;
+  padding: 4px;
+  background: #eaebee;
+  border-radius: 999px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 12px 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  min-height: 44px;
+  color: var(--color-sub);
+  transition: background 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+.tab-btn.active {
+  color: var(--color-text);
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.app-main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 18px 40px;
+  background: var(--color-card);
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ===== 입력 필드 ===== */
+.field-group {
+  margin-bottom: 22px;
+}
+.field-group.small {
+  margin-bottom: 14px;
+}
+.field-label {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.hint {
+  font-weight: 400;
+  color: var(--color-sub);
+  font-size: 0.9rem;
+}
+
+.money-input {
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f2f3f5;
+}
+.num-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 14px 16px;
+  font-size: 1.2rem;
+  min-height: 48px;
+  text-align: right;
+  font-weight: 700;
+  color: var(--color-text);
+}
+.money-input .unit {
+  padding: 0 16px;
+  font-size: 1.1rem;
+  color: var(--color-sub);
+  white-space: nowrap;
+}
+.num-input:focus {
+  background: #eaf2ff;
+}
+
+/* ===== 플랫폼 큰 버튼 ===== */
+.platform-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.platform-btn {
+  min-height: 56px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 16px;
+  background: var(--brand-tint, #f2f3f5);
+  cursor: pointer;
+  color: var(--brand, var(--color-sub));
+  transition: background 150ms ease, color 150ms ease;
+}
+.platform-btn.active {
+  color: #fff;
+  background: var(--brand, var(--color-primary));
+}
+
+.platform-hint {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  color: var(--color-sub);
+  line-height: 1.4;
+}
+
+/* ===== 고급 옵션 (기본 숨김) ===== */
+.advanced-toggle, .details-toggle {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 10px 0;
+  cursor: pointer;
+}
+.advanced-panel {
+  border: none;
+  background: #f2f3f5;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+/* ===== 버튼 ===== */
+.calc-btn {
+  display: block;
+  width: 100%;
+  min-height: 56px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--color-primary);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+.calc-btn:active {
+  background: var(--color-primary-dark);
+}
+
+.reset-btn {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-sub);
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+/* ===== 결과 카드 (1, 3단계) ===== */
+.result-card {
+  margin-top: 24px;
+  padding: 28px 24px;
+  text-align: center;
+  background: #fafafa;
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+.result-label {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-sub);
+}
+.result-amount {
+  margin: 6px 0;
+  font-size: 2.6rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+.result-rate {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--color-accent-tint);
+  color: var(--color-accent);
+}
+
+.breakdown-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  text-align: left;
+  font-size: 1rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 12px;
+}
+.breakdown-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+.breakdown-list li.total {
+  font-weight: 800;
+  border-top: 2px solid var(--color-text);
+  margin-top: 4px;
+  padding-top: 10px;
+}
+.breakdown-list li .negative {
+  color: var(--color-danger);
+}
+
+/* ===== 플랫폼 비교 카드 (2단계) ===== */
+.compare-cards {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.platform-card {
+  position: relative;
+  padding: 20px;
+  text-align: center;
+  border: none;
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+.platform-card.best {
+  box-shadow: var(--shadow-pop);
+}
+.pc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+  background: var(--brand-tint);
+  color: var(--brand);
+}
+.pc-amount {
+  margin: 6px 0;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+.pc-rate {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-sub);
+}
+.best-badge {
+  position: absolute;
+  top: -12px;
+  right: 16px;
+  background: var(--color-text);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.app-footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-sub);
+  padding: 20px 16px 40px;
+}
+
+/* ===== 모바일 ===== */
+@media (max-width: 480px) {
+  html { font-size: 17px; }
+  .result-amount { font-size: 2rem; }
+}
