@@ -204,23 +204,30 @@ body {
 /* ===== 플랫폼 버튼 ===== */
 .platform-buttons {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 .platform-btn {
-  min-height: 52px;
-  font-size: 1.05rem;
-  font-weight: 700;
+  padding: 4px;
   border: none;
   border-radius: 16px;
-  background: var(--brand-tint, #f2f3f5);
+  background: none;
   cursor: pointer;
-  color: var(--brand, var(--color-sub));
-  transition: background 150ms ease, color 150ms ease;
+  box-shadow: 0 0 0 2px transparent;
+  transition: box-shadow 150ms ease, transform 150ms ease;
+}
+.platform-btn img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+}
+.platform-btn:hover {
+  transform: translateY(-2px);
 }
 .platform-btn.active {
-  color: #fff;
-  background: var(--brand, var(--color-primary));
+  box-shadow: 0 0 0 2px var(--brand, var(--color-primary));
 }
 
 .platform-hint {
